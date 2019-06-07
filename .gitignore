@@ -1,0 +1,13 @@
+# all pdf's
+/* .pdf
+
+# all .zips
+/* .zip
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+
+# all .csv files
+/* .csv
+
+
