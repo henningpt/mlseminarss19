@@ -7,7 +7,9 @@ from matplotlib import pyplot as plt
 
 # test
 print("test1")
-df = pd.DataFrame('export.csv')
-df.head(100)
+data = pd.read_csv("dataset/dataset.csv")
+df = pd.DataFrame(data=data)
 
+plt.plot(df["longitude"], df["latitude"], "x")
+plt.show()
 print("test2")
