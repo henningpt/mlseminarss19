@@ -11,5 +11,10 @@ data = pd.read_csv("dataset/dataset.csv")
 df = pd.DataFrame(data=data)
 
 plt.plot(df["longitude"], df["latitude"], "x")
-plt.show()
+# plt.show()
+
+
 print("test2")
+
+
+# remove lines where temperature 
