@@ -16,24 +16,18 @@ def num_of_day(date):
 
 # entferne NaN eintraege aus spalte in dataframe
 def rnan_lines(dframe, col_name):
-    return( dframe[pd.notnull(dframe[col_name])])
+    return(dframe[pd.notnull(dframe[col_name])])
 
 
+# daten einlesen
+print("Daten einlesen")
 
-# test
-print("test1")
-data = pd.read_csv("dataset/dataset_hard_clean.csv")
-df = pd.DataFrame(data=data)
-print(list(df))
+data = pd.read_csv("dataset/dataset_vim_clean.csv")
+df   = pd.DataFrame(data=data)
+df   = df.drop(df.columns[0], axis=1)
+print(list(df), sep="\n")
 
-# plt.figure(1)
-# plt.plot(df["longitude"], df["latitude"], "x")
-# plt.show()
-# plt.close() 
-
-print("test2")
-
-
+print("Daten eingelesen")
 
 
 # count how often which station occurs
@@ -41,25 +35,50 @@ plt.figure(2)
 count_station = df["station"].value_counts()
 plt.bar(x=count_station.index, height=count_station.values)
 plt.show()
-plt.close()
+plt.savefig('station_hist.pdf')
+plt.figure(3)
+count_countys = df["county"].value_counts()
+plt.bar(x=count_countys.index, height=count_countys.values)
+plt.show()
 
 
-# Zerlege Datum in Jahr, Tag im Jahr, Stunde
-# dtimes = np.datetime64(np.array(df["date"]))
+# Zerlege Datum in Jahr, Tag im Jahr, Stunde (!Dauert etwas!)
 dtimes = pd.Series([pd.to_datetime(dt) for dt in df["date"]]) 
 years  = pd.Series([dts.year for dts in dtimes])
 days   = pd.Series([num_of_day(dts) for dts in dtimes])  
 hours  = pd.Series([dts.hour for dts in dtimes])
 
-print(years[100:110], "\n", days[100:110], "\n", hours[100:110], "\n")
+del df["date"]
+df["year"]  = years
+df["days"]  = days
+df["hours"] = hours
+
+print(list(df))
 
 
-# erstelle DateFrames fuer jede der Stationen
+# erstelle DateFrames fuer jede der Stationen und loesche jeweils 'station' und 'county' (nicht mehr benoetigt)
 df_dublin   = df[df["station"] == "Dublin_Airport"]
 df_shannon  = df[df["station"] == "Shannon_Airport"]
 df_casement = df[df["station"] == "Casement"]
 df_cork     = df[df["station"] == "Cork_Airport"]
 df_knock    = df[df["station"] == "Knock_Airport"]
 
-plt.hist(df_dublin["temp"])
-plt.show()
+del df_dublin["station"]
+del df_shannon["station"]
+del df_casement["station"]
+del df_cork["station"]
+del df_knock["station"]
+del df_dublin["county"]
+del df_shannon["county"]
+del df_casement["county"]
+del df_cork["county"]
+del df_knock["county"]
+
+
+# einzeldaten der stationen abspeichern
+df.to_csv('dataset/dataset_clean.csv', encoding='utf-8')
+df_dublin.to_csv('dataset/ds_dublin.csv', encoding='utf-8')
+df_shannon.to_csv('dataset/ds_shannon.csv', encoding='utf-8')
+df_casement.to_csv('dataset/ds_casement.csv', encoding='utf-8')
+df_cork.to_csv('dataset/ds_cork.csv', encoding='utf-8')
+df_knock.to_csv('dataset/ds_knock.csv', encoding='utf-8')
