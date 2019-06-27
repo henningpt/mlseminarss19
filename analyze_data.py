@@ -27,6 +27,8 @@ print(list(df_casement), sep="\n")
 
 dublin_short   = df_dublin.head(shortnum)
 casement_short = df_casement.head(shortnum) 
+shannon_short  = df_shannon.head(shortnum) 
+cork_short     = df_cork.head(shortnum) 
 
 
 
@@ -60,7 +62,7 @@ plt.legend(loc='upper left')
 
 m.shadedrelief(scale=1)
 
-# plt.show()
+plt.savefig("build/map.pdf")
 
 
 
@@ -76,7 +78,7 @@ def add_attr_hist(dframe, target, attribute, l, dftarget=None):
     else:
         dframe_ret     = dframe.filter(list(set([target]) & set(attribute)), axis=1)
         dframe_attr    = dframe_ret.filter(attribute, axis=1)
-        dframe[target] = dftarget[target]
+        dframe_ret[target] = dftarget[target]
     
     for j in range(0, len(attribute) - 1):
         value = dframe_attr[attribute[j]].values.tolist()
@@ -102,12 +104,16 @@ def attr_hist(dframe, attribute, l, n):
 
 
 
-df_test_1 = add_attr_hist(dublin_short, 'temp', ['temp', 'vappr'], 5)
-df_test_2 = add_attr_hist(dublin_short, 'temp', ['temp', 'vappr'], 5, dftarget=casement_short)
-
-print(df_test_1.head(10))
-print(df_test_2.head(10))
+df_test_casement = add_attr_hist(casement_short, 'temp', ['temp'], 5, dftarget=dublin_short)
+df_test_cork     = add_attr_hist(cork_short, 'temp', ['temp'], 5, dftarget=dublin_short)
+df_test_shannon  = add_attr_hist(shannon_short, 'temp', ['temp'], 5, dftarget=dublin_short)
 
  
-#scatter_matrix(df_test, figsize=(25, 25))
-#plt.savefig('build/scatter_matrix.pdf')
+scatter_matrix(df_test_casement, figsize=(25, 25))
+plt.savefig('build/scatter_matrix_casement.pdf')
+
+scatter_matrix(df_test_cork, figsize=(25, 25))
+plt.savefig('build/scatter_matrix_cork.pdf')
+
+scatter_matrix(df_test_shannon, figsize=(25, 25))
+plt.savefig('build/scatter_matrix_shannon.pdf')
