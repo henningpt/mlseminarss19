@@ -31,12 +31,13 @@ print("Daten eingelesen")
 
 
 # count how often which station occurs
-plt.figure(2)
+plt.figure(1)
 count_station = df["station"].value_counts()
 plt.bar(x=count_station.index, height=count_station.values)
 plt.show()
 plt.savefig('station_hist.pdf')
-plt.figure(3)
+
+plt.figure(2)
 count_countys = df["county"].value_counts()
 plt.bar(x=count_countys.index, height=count_countys.values)
 plt.show()
@@ -76,9 +77,9 @@ del df_knock["county"]
 
 
 # einzeldaten der stationen abspeichern
-df.to_csv('dataset/dataset_clean.csv', encoding='utf-8')
-df_dublin.to_csv('dataset/ds_dublin.csv', encoding='utf-8')
-df_shannon.to_csv('dataset/ds_shannon.csv', encoding='utf-8')
-df_casement.to_csv('dataset/ds_casement.csv', encoding='utf-8')
-df_cork.to_csv('dataset/ds_cork.csv', encoding='utf-8')
-df_knock.to_csv('dataset/ds_knock.csv', encoding='utf-8')
+#df.to_csv('dataset/dataset_clean.csv', encoding='utf-8')
+#df_dublin.to_csv('dataset/ds_dublin.csv', encoding='utf-8')
+#df_shannon.to_csv('dataset/ds_shannon.csv', encoding='utf-8')
+#df_casement.to_csv('dataset/ds_casement.csv', encoding='utf-8')
+#df_cork.to_csv('dataset/ds_cork.csv', encoding='utf-8')
+#df_knock.to_csv('dataset/ds_knock.csv', encoding='utf-8')

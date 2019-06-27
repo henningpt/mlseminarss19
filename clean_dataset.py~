@@ -31,12 +31,13 @@ print("Daten eingelesen")
 
 
 # count how often which station occurs
-plt.figure(2)
+plt.figure(1)
 count_station = df["station"].value_counts()
 plt.bar(x=count_station.index, height=count_station.values)
 plt.show()
 plt.savefig('station_hist.pdf')
-plt.figure(3)
+
+plt.figure(2)
 count_countys = df["county"].value_counts()
 plt.bar(x=count_countys.index, height=count_countys.values)
 plt.show()
