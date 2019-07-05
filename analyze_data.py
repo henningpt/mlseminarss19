@@ -4,7 +4,7 @@ from pandas.plotting import scatter_matrix
 from matplotlib import pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
-shortnum = 1000 
+shortnum = 2000 
 
 
 data_dublin   = pd.read_csv("dataset/ds_dublin.csv")
@@ -62,7 +62,7 @@ plt.legend(loc='upper left')
 
 m.shadedrelief(scale=1)
 
-plt.savefig("build/map.pdf")
+plt.savefig("build/map.png")
 
 
 
@@ -71,18 +71,19 @@ def add_attr_hist(dframe, target, attribute, l, dftarget=None):
     if dftarget is None: 
         dftarget = dframe
 
-    if set(target) & set(attribute) == {}:
+    if set([target]) & set(attribute) == set():
         dframe[target] = dftarget[target]
         dframe_ret     = dframe.filter([target] + attribute, axis=1)
         dframe_attr    = dframe_ret.filter(attribute, axis=1)
     else:
-        dframe_ret     = dframe.filter(list(set([target]) & set(attribute)), axis=1)
+        dframe_ret     = dframe.filter(attribute, axis=1)
         dframe_attr    = dframe_ret.filter(attribute, axis=1)
         dframe_ret["target-" + target] = dftarget[target]
     
-    for j in range(0, len(attribute) - 1):
+    for j in range(0, len(attribute)):
         value = dframe_attr[attribute[j]].values.tolist()
         for i in range(1, l + 1):
+            print("index : ", i)
             dframe_ret[str(attribute[j]) + "-" + str(i)] = pd.Series([np.nan] * i + value[0:(len(dframe_ret) - (i + 1))])
 
     return(dframe_ret[l:len(dframe)])
@@ -104,16 +105,22 @@ def attr_hist(dframe, attribute, l, n):
 
 
 
-df_test_casement = add_attr_hist(casement_short, 'temp', ['temp', 'rain'], 5, dftarget=dublin_short)
-df_test_cork     = add_attr_hist(cork_short, 'temp', ['temp', 'rain'], 5, dftarget=dublin_short)
+df_test_casement = add_attr_hist(casement_short, 'temp', ['temp', 'vappr', 'dewpt', 'rhum', 'msl'], 3, dftarget=dublin_short)
+df_test_cork     = add_attr_hist(cork_short, 'temp', ['rain', 'vappr'], 5, dftarget=dublin_short)
 df_test_shannon  = add_attr_hist(shannon_short, 'temp', ['temp'], 5, dftarget=dublin_short)
 
  
 scatter_matrix(df_test_casement, figsize=(25, 25))
-plt.savefig('build/scatter_matrix_casement.pdf')
+plt.savefig('build/scatter_matrix_casement.png')
 
 scatter_matrix(df_test_cork, figsize=(25, 25))
-plt.savefig('build/scatter_matrix_cork.pdf')
+plt.savefig('build/scatter_matrix_cork.png')
 
 scatter_matrix(df_test_shannon, figsize=(25, 25))
-plt.savefig('build/scatter_matrix_shannon.pdf')
+plt.savefig('build/scatter_matrix_shannon.png')
+
+
+
+# spalten exportieren
+
+df_test_casement.to_csv('df_test_casement.csv', encoding="utf-8") 
