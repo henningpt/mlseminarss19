@@ -1,0 +1,22 @@
+0   rnd id 1
+1    rnd id 2
+2    longitude
+3    latitude
+4    rain
+5    temp      Air Temperature (°C)
+6    wetb      Wet Bulb Air Temperature (°C)
+7    dewpt     Dew Point Air Temperature (°C)
+8    vappr     Vapour Pressure (hPa)
+9    rhum      Relative Humidity (%)
+10    msl       Mean Sea Level Pressure (hPa)
+11    wdsp      Mean Hourly Wind Speed (kt)
+12    wddir     Predominant Hourly Wind Direction (degrees)
+13    ww        Synop Code Present Weather - (see data dictionary)
+14    w         Synop Code Past Weather - (see data dictionary)
+15    sun       Sunshine Duration (hours)
+16    vis       Visibility (m)
+17    clht      Cloud Ceiling Height - if none value is 999 (100s of feet)
+18    clamt     Cloud Amount (okta)
+19    year
+20    days
+21    hours
