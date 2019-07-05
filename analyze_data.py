@@ -78,7 +78,7 @@ def add_attr_hist(dframe, target, attribute, l, dftarget=None):
     else:
         dframe_ret     = dframe.filter(list(set([target]) & set(attribute)), axis=1)
         dframe_attr    = dframe_ret.filter(attribute, axis=1)
-        dframe_ret[target] = dftarget[target]
+        dframe_ret["target-" + target] = dftarget[target]
     
     for j in range(0, len(attribute) - 1):
         value = dframe_attr[attribute[j]].values.tolist()
@@ -104,8 +104,8 @@ def attr_hist(dframe, attribute, l, n):
 
 
 
-df_test_casement = add_attr_hist(casement_short, 'temp', ['temp'], 5, dftarget=dublin_short)
-df_test_cork     = add_attr_hist(cork_short, 'temp', ['temp'], 5, dftarget=dublin_short)
+df_test_casement = add_attr_hist(casement_short, 'temp', ['temp', 'rain'], 5, dftarget=dublin_short)
+df_test_cork     = add_attr_hist(cork_short, 'temp', ['temp', 'rain'], 5, dftarget=dublin_short)
 df_test_shannon  = add_attr_hist(shannon_short, 'temp', ['temp'], 5, dftarget=dublin_short)
 
  
