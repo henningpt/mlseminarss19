@@ -3,7 +3,7 @@ import pandas as pd
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot as plt
 
-
+num_data=1000
 #print("Daten einlesen")
 #data = pd.read_csv("dataset/dataset_vim_clean.csv")
 #df   = pd.DataFrame(data=data)#
@@ -19,17 +19,18 @@ def load_data_to_array(station):
         len(list)
         ):
         empty_array=np.append(empty_array,station+list[j])
-    empty_array = np.genfromtxt("dataset/"+str(station)+".csv",delimiter=",",skip_header=1, unpack=True,dtype='unicode')
+    empty_array = np.genfromtxt("dataset/"+str(station)+".csv",max_rows=num_data,delimiter=",",skip_header=1, unpack=True)
     return empty_array
 
 
 ds_dublin=load_data_to_array("ds_dublin")
 ds_shannon=load_data_to_array("ds_shannon")
+x=np.linspace(0,num_data,num_data)
 
-print(ds_dublin)
-plt.hist2d(ds_dublin[6][:],ds_shannon[6][:])
-plt.savefig("hist.pdf")
+print(x.dtype, ds_dublin[5].dtype)
 
+plt.plot(x,(ds_dublin[5]))
+plt.savefig("ds_dublin.pdf")
         #station_array[i]=np.array([list[j]])
 
         #str(station_array[i])+str(list[j])=np.append()
