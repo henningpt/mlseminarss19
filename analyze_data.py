@@ -105,7 +105,7 @@ def attr_hist(dframe, attribute, l, n):
 
 
 
-df_test_casement = add_attr_hist(casement_short, 'temp', ['temp', 'vappr', 'dewpt', 'rhum', 'msl'], 3, dftarget=dublin_short)
+df_test_casement = add_attr_hist(casement_short, 'temp', ['temp', 'vappr', 'dewpt', 'rhum', 'msl'], 5, dftarget=dublin_short)
 df_test_cork     = add_attr_hist(cork_short, 'temp', ['rain', 'vappr'], 5, dftarget=dublin_short)
 df_test_shannon  = add_attr_hist(shannon_short, 'temp', ['temp'], 5, dftarget=dublin_short)
 
