@@ -3,6 +3,8 @@ import pandas as pd
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot as plt
 from mpl_toolkits.basemap import Basemap
+import seaborn as sns
+
 
 shortnum = 2000 
 
@@ -63,7 +65,7 @@ plt.legend(loc='upper left')
 m.shadedrelief(scale=1)
 
 plt.savefig("build/map.png")
-
+plt.close()
 
 
 # ---functions---
@@ -105,22 +107,34 @@ def attr_hist(dframe, attribute, l, n):
 
 
 
-df_test_casement = add_attr_hist(casement_short, 'temp', ['temp', 'vappr', 'dewpt', 'rhum', 'msl'], 5, dftarget=dublin_short)
-df_test_cork     = add_attr_hist(cork_short, 'temp', ['rain', 'vappr'], 5, dftarget=dublin_short)
+df_test_casement = add_attr_hist(casement_short, 'temp', ['rain', 'temp', 'vappr', 'ww', 'sun'  ], 5, dftarget=dublin_short)
+df_test_cork     = add_attr_hist(cork_short, 'temp', ['rain', 'vappr'], 1, dftarget=dublin_short)
 df_test_shannon  = add_attr_hist(shannon_short, 'temp', ['temp'], 5, dftarget=dublin_short)
 
  
-scatter_matrix(df_test_casement, figsize=(25, 25))
-plt.savefig('build/scatter_matrix_casement.png')
-
-scatter_matrix(df_test_cork, figsize=(25, 25))
-plt.savefig('build/scatter_matrix_cork.png')
-
-scatter_matrix(df_test_shannon, figsize=(25, 25))
-plt.savefig('build/scatter_matrix_shannon.png')
+# scatter_matrix(df_test_casement, figsize=(25, 25))
+# plt.savefig('build/scatter_matrix_casement.png')
+# 
+# scatter_matrix(df_test_cork, figsize=(25, 25))
+# plt.savefig('build/scatter_matrix_cork.png')
+# 
+# scatter_matrix(df_test_shannon, figsize=(25, 25))
+# plt.savefig('build/scatter_matrix_shannon.png')
 
 
 
 # spalten exportieren
 
-df_test_casement.to_csv('df_test_casement.csv', encoding="utf-8") 
+# df_test_casement.to_csv('df_test_casement.csv', encoding="utf-8") 
+
+
+# Korrelationnen untersuchen 
+plt.figure(figsize=(30,30))
+sns.heatmap(df_test_casement.corr(), annot=True, square=True, cmap='coolwarm') 
+plt.savefig('build/correlation.pdf')
+
+
+
+
+
+# longitude,latitude,rain,temp,wetb,dewpt,vappr,rhum,msl,wdsp,wddir,ww,w,sun,vis,clht,clamt,year,days,hours
